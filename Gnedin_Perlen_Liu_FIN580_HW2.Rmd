@@ -1,0 +1,38 @@
+---
+title: "Gnedin_Perlen_Liu_FIN580_HW2"
+author: "Gnedin_Perlen_Liu"
+date: "March 8, 2017"
+output: pdf_document
+---
+
+```{r,tidy=TRUE}
+#Setup 
+library(xlsx)
+library(forecast)
+library(tseries)
+library(stats)
+library(car)
+library(glmnet)
+library(miscTools)
+library(Metrics)
+library(knitr)
+library(BioPhysConnectoR)
+#Set seed
+set.seed(666)
+
+```
+
+```{r,tidy=TRUE}
+#Get data
+file_names=dir(path="~/Desktop/Grad_School/2016-2017_Spring/Amin/Homework/HW 2/Data")
+setwd("~/Desktop/Grad_School/2016-2017_Spring/Amin/Homework/HW 2/Data")
+
+for(i in 1:length(file_names)){
+  temp=read.csv(file_names[i],header = TRUE)
+  n=ncol(temp)
+  if(i==1){
+    data=temp[,n]
+  }
+  data=cbind(data,temp[,n])
+}
+```
