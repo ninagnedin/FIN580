@@ -22,6 +22,7 @@ set.seed(666)
 
 ```
 
+Read in data. There might some days the price remains constant. You should check the data and delete those days, since the estimate of volatility will be zero
 ```{r,tidy=TRUE}
 #Get data
 file_names=dir(path="~/Desktop/Grad_School/2016-2017_Spring/Amin/Homework/HW 2/Data")
@@ -33,6 +34,34 @@ for(i in 1:length(file_names)){
   if(i==1){
     data=temp[,n]
   }
-  data=cbind(data,temp[,n])
+  else{
+    data=cbind(data,temp[,n])
+  }
 }
+
+remove_constants=function(time_series){
+  new_series=time_series
+  for(i in 1:length(time_series)){
+    if(new_series[i+1]==new_series[i]){
+      
+    }
+  }
+}
+```
+
+Get volatilities, annualize, and take the log.
+```{r}
+period=288 #Only using daily vols for this assignment
+get_vol=function(time_series,start_i,end_i){
+  use_data=time_series[start_i:end_i,]
+  sds=apply(use_data,2,sd)*sqrt(period*252)
+  return(sds)
+}
+vols=data.frame(matrix(NA,ncol = ncol(data),nrow=nrow(data)/period))
+vols=sapply(1:(nrow(data)-288),function(x) {get_vol(data,x,x+288)})
+vols=t(vols)
+
+
+
+
 ```
